@@ -4,7 +4,7 @@ const {
   getThoughtById,
   createThought,
 } = require("../controllers/thoughts");
-const router = express.Router();
+const router = require("express").Router();
 
 router.get("/", getAllThoughts);
 
