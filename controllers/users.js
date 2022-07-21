@@ -2,7 +2,7 @@ const User = require("../models/User.js");
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate("thoughts");
     res.status(200).json(users);
   } catch (err) {
     console.error(err);
@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("thoughts");
     res.status(200).json(user);
   } catch (err) {
     console.error(err);

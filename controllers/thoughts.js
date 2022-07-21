@@ -1,4 +1,5 @@
 const Thought = require("../models/Thought");
+const User = require("../models/User");
 
 const getAllThoughts = async (req, res) => {
   try {
@@ -22,8 +23,15 @@ const getThoughtById = async (req, res) => {
 };
 
 const createThought = async (req, res) => {
+  const { id } = req.params;
+
   try {
     const newThought = await Thought.create(req.body);
+    await User.findByIdAndUpdate(id, {
+      $push: {
+        thoughts: newThought._id,
+      },
+    });
     res.status(201).json({ message: "New thought created!", data: newThought });
   } catch (err) {
     console.error(err);
@@ -35,7 +43,7 @@ const updateThought = async (req, res) => {
   const { id } = req.params;
   try {
     const updatedThought = await Thought.findByIdAndUpdate(id, req.body);
-    res.status(204).json({ message: "Thought updated!" });
+    res.status(204).json({ message: "Thought updated!", data: updatedThought });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);

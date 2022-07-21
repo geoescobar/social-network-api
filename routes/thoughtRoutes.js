@@ -10,7 +10,7 @@ const router = require("express").Router();
 
 router.get("/", getAllThoughts);
 
-router.post("/", createThought);
+router.post("/:id", createThought);
 
 router.get("/:id", getThoughtById);
 
