@@ -14,7 +14,7 @@ const getAllThoughts = async (req, res) => {
 const getThoughtById = async (req, res) => {
   const { id } = req.params;
   try {
-    const thought = await Thought.findById();
+    const thought = await Thought.findById(id);
     res.status(200).json(thought);
   } catch (err) {
     console.error(err);
@@ -43,7 +43,7 @@ const updateThought = async (req, res) => {
   const { id } = req.params;
   try {
     const updatedThought = await Thought.findByIdAndUpdate(id, req.body);
-    res.status(204).json({ message: "Thought updated!", data: updatedThought });
+    res.status(200).json({ message: "Thought updated!", data: updatedThought });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
